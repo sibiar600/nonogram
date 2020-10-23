@@ -68,6 +68,7 @@ router.put('/like' , checkAuth, (req, res) => {
         {$push:{likes: req.user._id}},
         {new: true})
         .populate("postedBy", "_id name pic")
+        .populate("comments.postedBy", "_id name")
         .exec((err, result) => {
             if (err) {
                 return res.status(422).json({error: err})
@@ -82,6 +83,7 @@ router.put('/unlike', checkAuth, (req, res) => {
         { $pull: { likes: req.user._id } },
         { new: true })
         .populate("postedBy", "_id name pic")
+        .populate("comments.postedBy", "_id name pic")
         .exec((err, result) => {
             if (err) {
                 return res.status(422).json({ error: err })
