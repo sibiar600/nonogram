@@ -1,0 +1,38 @@
+### create user
+POST http://localhost:5000/signup
+Content-Type: application/json
+
+{
+    "name": "nono",
+    "email": "nono@gmail.com",
+    "password": "password"
+}
+
+### login user
+POST http://localhost:5000/signin
+Content-Type: application/json
+
+{
+    "email": "sherlock@gmail.com",
+    "password": "password"
+}
+
+### show allposts
+GET http://localhost:5000/allpost
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjhmY2Q5Yzg0M2JlZTA4MmE2ODMzZTYiLCJpYXQiOjE2MDMyNjUyMTh9.4YnNUxfN5hTIP5nCIBptDgnT8yibKtwOIfuAEMCwaxE
+
+### show post of specific user
+GET http://localhost:5000/mypost
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjhmY2Q4Mjg0M2JlZTA4MmE2ODMzZTUiLCJpYXQiOjE2MDMyNzI0NDJ9.089zPSBMYBqq-0hth-obeIBSp53i869K0BrOwq_WBTE
+
+### create post
+POST http://localhost:5000/create
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjhmY2Q4Mjg0M2JlZTA4MmE2ODMzZTUiLCJpYXQiOjE2MDMyNzI0NDJ9.089zPSBMYBqq-0hth-obeIBSp53i869K0BrOwq_WBTE
+Content-Type: application/json
+
+{
+    "title": "Watson",
+    "body": "This is my friend!"
+}
+
+
