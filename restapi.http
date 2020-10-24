@@ -36,3 +36,5 @@ Content-Type: application/json
 }
 
 
+###
+GET http://localhost:5000/user/5f92b5d3af24118bc41c66ad

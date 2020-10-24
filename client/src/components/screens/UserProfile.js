@@ -2,6 +2,8 @@ import React, { useEffect, useState, useContext } from 'react'
 import { UserContext } from '../../App'
 import { useParams } from 'react-router-dom'
 
+
+
 const Profile = () => {
     const [userProfile, setUserProfile] = useState(null)
     const { state, dispatch } = useContext(UserContext)
@@ -13,13 +15,14 @@ const Profile = () => {
     }, state)
 
     useEffect(() => {
+        // console.log("/user/" + userid);
         fetch(`/user/${userid}`, {
             headers: {
                 "Authorization": "Bearer " + localStorage.getItem("jwt")
             }
         }).then(res => res.json())
             .then(result => {
-                console.log('result', result)
+                // console.log('this is the result', result)
                 setUserProfile(result)
             })
     }, [])

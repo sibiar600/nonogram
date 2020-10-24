@@ -2,7 +2,7 @@ const router = require('express').Router()
 const Post = require('../models/post')
 const checkAuth = require('../middleware/checkAuth')
 
-router.get('/user/:id', checkAuth, (req, res) => {
+router.get('/user/:id', (req, res) => {
     User.findOne({ _id: req.params.id })
         .select("-password")
         .then(user => {
