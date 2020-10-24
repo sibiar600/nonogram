@@ -19,7 +19,6 @@ router.get('/user/:id', (req, res) => {
         })
 })
 
-
 router.put('/follow', checkAuth, (req, res) => {
     User.findByIdAndUpdate(req.body.followId, {
         $push: { followers: req.user._id }
@@ -41,6 +40,7 @@ router.put('/follow', checkAuth, (req, res) => {
     }
     )
 })
+
 router.put('/unfollow', checkAuth, (req, res) => {
     User.findByIdAndUpdate(req.body.unfollowId, {
         $pull: { followers: req.user._id }
