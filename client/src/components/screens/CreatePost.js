@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react'
-import '../../App.css'
 import { useHistory } from 'react-router-dom'
 import M from 'materialize-css'
+
+import '../../App.css'
 
 const CreatePost = () => {
     const history = useHistory()
@@ -12,6 +13,7 @@ const CreatePost = () => {
 
     useEffect(() => {
         if (url) {
+            console.log(url)
             // posting to database
             fetch("/create", {
                 method: "post",

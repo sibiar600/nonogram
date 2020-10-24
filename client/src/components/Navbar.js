@@ -23,7 +23,7 @@ const NavBar = () => {
 
     const renderList = () => {
         if (state) {
-            return [
+            return [ 
                 <li key="1"><i data-target="modal1" className="material-icons modal-trigger" style={{ color: "black" }}>search</i></li>,
                 <li key="2"><Link to="/profile">Profile</Link></li>,
                 <li key="3"><Link to="/create">New Post</Link></li>,
@@ -35,7 +35,6 @@ const NavBar = () => {
                     >
                         Logout
                     </button>
-
                 </li>
             ]
         }else {
@@ -64,14 +63,15 @@ const NavBar = () => {
     return (
         <div className="navbar-fixed" >
             <nav>
-
                 <div className="nav-wrapper white">
                     <Link to={state ? "/" : "/login"} className="brand-logo left">▲⚬▲⚬</Link>
-                    <ul id="nav-mobile" className="right">
+                    <a href="#" data-target="mobile-demo" class="right sidenav-trigger"><i class="material-icons">menu</i></a>
+                    <ul id="nav-mobile" className="right hide-on-med-and-down">
                         {renderList()}
                     </ul>
                 </div>  
 
+                {/* search */}
                 <div id="modal1" class="modal" ref={searchModal} style={{ color: "black" }}>
                     <div className="modal-content">
                         <input
