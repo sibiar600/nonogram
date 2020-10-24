@@ -126,6 +126,7 @@ const Home = () => {
                 data.map(item => {
                     return (
                         <div className='card home-card' key={item._id}>
+
                             <div className='card_top'>
                                 <div className='flex'>
                                     <img className='avatar' src={item.postedBy.pic} alt=""/>
@@ -171,6 +172,7 @@ const Home = () => {
                                 </form>
                             
                             </div>
+                            
                         </div>
 
                     )

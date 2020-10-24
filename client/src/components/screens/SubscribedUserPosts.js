@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { UserContext } from '../../App'
-import '../../App.css'
 import { Link } from 'react-router-dom'
+
+import '../../App.css'
 
 const Home = () => {
     const [data, setData] = useState([])
@@ -124,14 +125,21 @@ const Home = () => {
                 data.map(item => {
                     return (
                         <div className='card home-card' key={item._id}>
-                            <h5 style={{ padding: "5px" }}><Link to={item.postedBy._id !== state._id ? "/profile/" + item.postedBy._id : "/profile"}>{item.postedBy.name}</Link> {item.postedBy._id === state._id
-                                && <i className="material-icons" style={{
-                                    float: "right"
-                                }}
-                                    onClick={() => deletePostHandler(item._id)}
-                                >delete</i>
+                            <div className='card_top'>
+                                <div className='flex'>
+                                    <img className='avatar' src={item.postedBy.pic} alt="" />
+                                    <div className='postedby'><Link to={item.postedBy._id !== state._id ? "/profile/" + item.postedBy._id : "/profile"}>{item.postedBy.name}</Link> </div>
+                                </div>
+                                <div style={{ marginRight: '2rem' }}>{item.postedBy._id === state._id
+                                    && <i className="material-icons" style={{
+                                        float: "right"
+                                    }}
+                                        onClick={() => deletePostHandler(item._id)}
+                                    >delete</i>
 
-                            }</h5>
+                                }</div>
+                            </div>
+
                             <div className='card-image'>
                                 <img src={item.image} alt='' />
                             </div>
@@ -139,12 +147,12 @@ const Home = () => {
                                 <i className="material-icons">favorite_border</i>
                                 {item.likes.includes(state._id)
                                     ?
-                                    <i className="material-icons" onClick={() => unlikePostHandler(item._id)}>thumb_down</i>
+                                    <i className="material-icons thumbs" onClick={() => unlikePostHandler(item._id)}>thumb_down</i>
                                     :
-                                    <i className="material-icons" onClick={() => likePostHandler(item._id)}
+                                    <i className="material-icons thumbs" onClick={() => likePostHandler(item._id)}
                                     >thumb_up</i>
                                 }
-                                <h6>{item.likes.length}</h6>
+                                <h6>{item.likes.length} likes</h6>
                                 <h6>{item.title}</h6>
                                 <p>{item.body}</p>
                                 {
