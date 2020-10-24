@@ -137,7 +137,6 @@ const Home = () => {
                                     }}
                                         onClick={() => deletePostHandler(item._id)}
                                     >delete</i>
-
                                 }</div>
                             </div>
                             
@@ -153,7 +152,7 @@ const Home = () => {
                                     <i className="material-icons thumbs" onClick={() => likePostHandler(item._id)}
                                     >thumb_up</i>
                                 }
-                                <h6>{item.likes.length} likes</h6>
+                                <h6 style={{fontWeight: '700'}}>{item.likes.length} likes</h6>
                                 <h6>{item.title}</h6>
                                 <p>{item.body}</p>
                                 {
