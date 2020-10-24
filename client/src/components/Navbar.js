@@ -94,7 +94,6 @@ const NavBar = () => {
                         <button className="modal-close waves-effect waves-green btn-flat" onClick={() => setSearch('')}>close</button>
                     </div>
                 </div>
-
                 
             </nav>
         </div>
