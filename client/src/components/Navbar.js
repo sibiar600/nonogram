@@ -7,43 +7,55 @@ import '../App.css'
 
 const NavBar = () => {
     const searchModal = useRef(null)
+    const sideNav = useRef(null)
     const [search, setSearch] = useState()
     const [userDetails, setUserDetails] = useState([])
     const { state, dispatch } = useContext(UserContext)
     const history = useHistory()
+
     useEffect(() => {
         M.Modal.init(searchModal.current)
     }, [])
+
+    useEffect(() => {
+        M.Sidenav.init(sideNav.current)
+    }, [])
+
     const logoutHandler = () => {
         localStorage.clear()
         dispatch({type: "CLEAR"})
         history.push('/login')
     }
 
-
     const renderList = () => {
         if (state) {
-            return [ 
+            return [
                 <li key="1"><i data-target="modal1" className="material-icons modal-trigger" style={{ color: "black" }}>search</i></li>,
                 <li key="2"><Link to="/profile">Profile</Link></li>,
                 <li key="3"><Link to="/create">New Post</Link></li>,
                 <li key="4"><Link to="/myfollowingpost">Following</Link></li>,
                 <li key="5">
-                    <button
-                        className="btn"
-                        onClick={() => logoutHandler()}
+                    <button className="btn"
+                        onClick={() => {
+                            localStorage.clear()
+                            dispatch({ type: "CLEAR" })
+                            history.push('/login')
+                        }}
                     >
                         Logout
                     </button>
                 </li>
             ]
-        }else {
+        } else {
             return [
-                <li><Link to="/login">Login</Link></li>,
-                <li><Link to="/signup">Signup</Link></li>
+                <li key="6"><Link to="/signin">Signin</Link></li>,
+                <li key="7"><Link to="/signup">Signup</Link></li>
+
             ]
         }
     }
+
+    
 
     const fetchUsers = (query) => {
         setSearch(query)
@@ -64,15 +76,16 @@ const NavBar = () => {
         <div className="navbar-fixed" >
             <nav>
                 <div className="nav-wrapper white">
+
                     <Link to={state ? "/" : "/login"} className="brand-logo left">▲⚬▲⚬</Link>
-                    <a href="#" data-target="mobile-demo" class="right sidenav-trigger"><i class="material-icons">menu</i></a>
+                    <a href="#" data-target="mobile-demo" className="right sidenav-trigger"><i className="material-icons">menu</i></a>
                     <ul id="nav-mobile" className="right hide-on-med-and-down">
                         {renderList()}
                     </ul>
                 </div>  
 
                 {/* search */}
-                <div id="modal1" class="modal" ref={searchModal} style={{ color: "black" }}>
+                <div id="modal1" className="modal" ref={searchModal} style={{ color: "black" }}>
                     <div className="modal-content">
                         <input
                             type="text"
