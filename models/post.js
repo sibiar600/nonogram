@@ -25,6 +25,6 @@ const postSchema = new mongoose.Schema({
         type: ObjectId,
         ref: "User"
     }
-})
+}, {timestamps:true})
 
 module.exports = Post = mongoose.model("Post", postSchema)
