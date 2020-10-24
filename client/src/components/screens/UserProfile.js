@@ -91,8 +91,7 @@ const Profile = () => {
                     <div style={{
                         display: "flex",
                         justifyContent: "space-around",
-                        margin: "18px 0px",
-                        borderBottom: "1px solid grey"
+                        margin: "18px 0px"
                     }}>
                         <div>
                             <img style={{ width: "160px", height: "160px", borderRadius: "80px", objectFit: 'cover' }}
