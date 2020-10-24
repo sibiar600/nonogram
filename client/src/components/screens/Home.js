@@ -145,7 +145,7 @@ const Home = () => {
                                 <img src={item.image} alt='' />
                             </div>
                             <div className='card-content'>
-                                <i className="material-icons">favorite_border</i>
+                                {/* <i className="material-icons">favorite_border</i> */}
                                 {item.likes.includes(state._id)
                                 ?
                                     <i className="material-icons thumbs" onClick={() => unlikePostHandler(item._id)}>thumb_down</i>
