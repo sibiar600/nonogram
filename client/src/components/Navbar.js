@@ -48,7 +48,7 @@ const NavBar = () => {
             ]
         } else {
             return [
-                <li key="6"><Link to="/signin">Signin</Link></li>,
+                <li key="6"><Link to="/signin">Login</Link></li>,
                 <li key="7"><Link to="/signup">Signup</Link></li>
 
             ]

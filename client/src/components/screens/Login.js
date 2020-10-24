@@ -64,12 +64,12 @@ const Login = () => {
                 >
                     Login
                 </button>
-                <h5>
-                    <Link to='Signup'> Don't have an account?</Link>
-                </h5>
                 <h6>
-                    <Link to="/reset">Forgot password?</Link>
+                    <Link to='Signup'> Don't have an account?</Link>
                 </h6>
+                <div>
+                    <Link to="/reset">Forgot password?</Link>
+                </div>
 
 
             </div>
