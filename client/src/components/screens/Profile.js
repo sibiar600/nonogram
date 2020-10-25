@@ -66,7 +66,7 @@ const Profile = () => {
 
     return (
 
-        <div style={{ maxWidth: "600px", margin: "0px auto" }}>
+        <div style={{ maxWidth: "65%", margin: "0px auto" }}>
 
             {/* top */}
             <div style={{margin: "18px 0px"}}>

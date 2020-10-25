@@ -87,7 +87,7 @@ const Profile = () => {
     return (
         <>
             { userProfile ?
-                <div style={{ maxWidth: "550px", margin: "0px auto" }}>
+                <div style={{ maxWidth: "65%", margin: "0px auto" }}>
                     <div style={{
                         display: "flex",
                         justifyContent: "space-around",

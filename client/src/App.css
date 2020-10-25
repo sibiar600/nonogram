@@ -44,7 +44,7 @@ h2 {
 
 .item {
   width: 30%;
-  height: 180px;
+  height: 240px;
   object-fit: cover;
   margin-bottom: 2rem;
 }
@@ -55,7 +55,7 @@ h2 {
 
 #toast-container {
   top: 30px;
-  right: 20px;
+  right: 30px;
   left: auto !important;
 }
 
