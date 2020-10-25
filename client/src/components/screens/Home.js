@@ -126,7 +126,7 @@ const Home = () => {
                 data.map(item => {
                     return (
                         <div className='card home-card' key={item._id}>
-                            <Scroll showBelow={200} />
+                            <Scroll showBelow={300} />
                             <div className='card_top'>
                                 
                                 <div className='flex'>
