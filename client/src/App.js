@@ -1,6 +1,6 @@
 import React, {useEffect, createContext, useReducer} from 'react';
 import './App.css';
-import NavBar from './components/NavBar';
+import Navbar from './components/Navbar';
 import { Route, useHistory} from 'react-router-dom'
 import Home from './components/screens/Home'
 import Signup from './components/screens/Signup';
@@ -33,7 +33,7 @@ function App() {
   return (
     <>
     <UserContext.Provider value={{state, dispatch}}>
-        <NavBar />
+        <Navbar />
         <Route exact path='/'>
           <Home />
         </Route>

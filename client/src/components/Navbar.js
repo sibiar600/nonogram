@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const NavBar = props =>  {
+const Navbar = props =>  {
     const { history } = props
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = useState(null);
@@ -202,4 +202,4 @@ const NavBar = props =>  {
     );
 }
 
-export default withRouter(NavBar)
+export default withRouter(Navbar)
