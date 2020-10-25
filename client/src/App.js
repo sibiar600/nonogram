@@ -1,6 +1,6 @@
 import React, {useEffect, createContext, useReducer} from 'react';
 import './App.css';
-import NavBar from './components/Navbar';
+import NavBar from './components/NavBar';
 import { Route, useHistory} from 'react-router-dom'
 import Home from './components/screens/Home'
 import Signup from './components/screens/Signup';

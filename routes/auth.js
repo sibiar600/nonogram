@@ -6,6 +6,8 @@ const jwt = require('jsonwebtoken')
 const checkAuth = require('../middleware/checkAuth')
 const nodemailer = require('nodemailer')
 const sendgridTransport = require('nodemailer-sendgrid-transport')
+const {check, validationResult} = require('express-validator')
+const HttpError = require('../models/http-error');
 
 const transporter = nodemailer.createTransport(sendgridTransport({
     auth: {
@@ -14,48 +16,59 @@ const transporter = nodemailer.createTransport(sendgridTransport({
 }))
 
 // signup
-router.post('/signup', (req, res) => {
-    const { name, email, password, pic } = req.body
-    if (!email || !password || !name) {
-        return res.status(422).json({ error: "please add all the fields" })
-    }
-    User.findOne({ email: email })
-        .then((savedUser) => {
-            if (savedUser) {
-                return res.status(422).json({ error: "user already exists with that email" })
-            }
-            bcrypt.hash(password, 12)
-                .then(hashedpassword => {
-                    const user = new User({
-                        email,
-                        password: hashedpassword,
-                        name,
-                        pic
+router.post('/signup', 
+    [
+        check('name').isLength({ min: 6 }),
+        check('email').normalizeEmail().isEmail(),
+        check('password').isLength({min: 4})
+    ],
+    async (req, res) => {
+        const errors = validationResult(req)
+        if (!errors.isEmpty()) {
+            res.status(422).json({ message: 'Invalid inputs passed, please keep it real.😀' })
+        }
+
+        const { name, email, password, pic } = req.body
+        if (!email || !password || !name) {
+            return res.status(422).json({ error: "please add all the fields" })
+        }
+        await User.findOne({ email: email })
+            .then((savedUser) => {
+                if (savedUser) {
+                    return res.status(422).json({ error: "user already exists with that email" })
+                }
+                bcrypt.hash(password, 12)
+                    .then(hashedpassword => {
+                        const user = new User({
+                            email,
+                            password: hashedpassword,
+                            name,
+                            pic
+                        })
+
+                        user.save()
+                            .then(user => {
+                                transporter.sendMail({
+                                    to:user.email,
+                                    from:"nonoumasy@gmail.com",
+                                    subject:"signup success",
+                                    html: 
+                                    `
+                                    <h1>Hello ${user.name}, Welcome to Nonogram.</h1> 
+                                    <p>https://nono-gram.herokuapp.com/</p>
+                                    `
+                                })
+                                res.json({ message: "saved successfully" })
+                            })
+                            .catch(err => {
+                                console.log(err)
+                            })
                     })
 
-                    user.save()
-                        .then(user => {
-                            transporter.sendMail({
-                                to:user.email,
-                                from:"nonoumasy@gmail.com",
-                                subject:"signup success",
-                                html: 
-                                `
-                                <h1>Hello ${user.name}, Welcome to Nonogram.</h1> 
-                                <p>https://nono-gram.herokuapp.com/</p>
-                                `
-                            })
-                            res.json({ message: "saved successfully" })
-                        })
-                        .catch(err => {
-                            console.log(err)
-                        })
-                })
-
-        })
-        .catch(err => {
-            console.log(err)
-        })
+            })
+            .catch(err => {
+                console.log(err)
+            })
 })
 
 // login

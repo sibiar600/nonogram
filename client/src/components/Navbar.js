@@ -1,116 +1,205 @@
-import React, {useContext, useRef, useEffect, useState } from 'react'
-import { Link, useHistory} from 'react-router-dom'
-import {UserContext} from '../App'
-import M from 'materialize-css'
+import React, {useState, useContext} from 'react';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import Link from '@material-ui/core/Link';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import Menu from '@material-ui/core/Menu';
+import Button from '@material-ui/core/Button';
+import {withRouter} from 'react-router-dom'
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { UserContext } from '../App' 
 
-import '../App.css'
+const useStyles = makeStyles((theme) => ({
+    root: {
+        flexGrow: 1,
+    },
+    menuButton: {
+        marginRight: theme.spacing(2),
+    },
+    title: { 
+        flexGrow: 1,
+    },
+    headerOptions: {
 
-const NavBar = () => {
-    const searchModal = useRef(null)
-    const sideNav = useRef(null)
-    const [search, setSearch] = useState()
-    const [userDetails, setUserDetails] = useState([])
+    }
+}));
+
+const NavBar = props =>  {
+    const { history } = props
+    const classes = useStyles();
+    const [anchorEl, setAnchorEl] = useState(null);
+    const open = Boolean(anchorEl);
     const { state, dispatch } = useContext(UserContext)
-    const history = useHistory()
+    const theme = useTheme()
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
 
-    useEffect(() => {
-        M.Modal.init(searchModal.current)
-    }, [])
+    const handleMenu = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
 
-    useEffect(() => {
-        M.Sidenav.init(sideNav.current)
-    }, [])
+    const handleMenuClick = (pageURL) => {
+        history.push(pageURL)
+        setAnchorEl(null);
+    };
 
-    const logoutHandler = () => {
+    const handleButtonClick = (pageURL) => {
+        history.push(pageURL)
+    };
+
+    const handleMenuLogout = () => {
         localStorage.clear()
-        dispatch({type: "CLEAR"})
+        dispatch({ type: "CLEAR" })
         history.push('/login')
     }
 
-    const renderList = () => {
+    const isLoggedInMenu = [
+        {
+            id: 1,
+            menuTitle: 'Home',
+            pageURL: '/'
+        },
+        {
+            id: 2,
+            menuTitle: 'New Post',
+            pageURL: '/create'
+        },
+        {
+            id: 3,
+            menuTitle: 'Profile',
+            pageURL: '/profile'
+        },
+        {
+            id: 4,
+            menuTitle: 'Following',
+            pageURL: '/myfollowingpost'
+        }
+    ]
+
+    const isLoggedOutMenu = [
+        {
+            id: 1,
+            menuTitle: 'Login',
+            pageURL: '/login'
+        },
+        {
+            id: 2,
+            menuTitle: 'Signup',
+            pageURL: '/signup'
+        }
+    ]
+
+    const renderMenu = () => {
         if (state) {
             return [
-                <li key="1"><i data-target="modal1" className="material-icons modal-trigger" style={{ color: "black" }}>search</i></li>,
-                <li key="2"><Link to="/profile">Profile</Link></li>,
-                <li key="3"><Link to="/create">New Post</Link></li>,
-                <li key="4"><Link to="/myfollowingpost">Following</Link></li>,
-                <li key="5">
-                    <button className="btn"
-                        onClick={() => {
-                            localStorage.clear()
-                            dispatch({ type: "CLEAR" })
-                            history.push('/login')
-                        }}
-                    >
-                        Logout
-                    </button>
-                </li>
+                isLoggedInMenu.map(menuItem => {
+                    const { id, menuTitle, pageURL } = menuItem;
+                    return (
+                        <MenuItem key={id} onClick={() => handleMenuClick(pageURL)}>
+                            {menuTitle}
+                        </MenuItem>
+                    );
+
+                }),
+                < MenuItem onClick={() => handleMenuLogout()}> Logout</ MenuItem >
             ]
         } else {
             return [
-                <li key="6"><Link to="/signin">Login</Link></li>,
-                <li key="7"><Link to="/signup">Signup</Link></li>
+                isLoggedOutMenu.map(menuItem => {
+                    const { id, menuTitle, pageURL } = menuItem;
+                    return (
+                        <MenuItem key={id} onClick={() => handleMenuClick(pageURL)}>
+                            {menuTitle}
+                        </MenuItem>
+                    );
+                })
+            ]
+        }
+        
+    }
 
+    const renderButton = () => {
+        if (state) {
+            return [
+                isLoggedInMenu.map(menuItem => {
+                    const { id, menuTitle, pageURL } = menuItem;
+                    return (
+                        <Button key={id} onClick={() => handleButtonClick(pageURL)}>
+                            {menuTitle}
+                        </Button>
+                    );
+
+                }),
+                <Button Button onClick={() => handleMenuLogout()}> Logout</Button >
+            ]
+        } else {
+            return [
+                isLoggedOutMenu.map(menuItem => {
+                    const { id, menuTitle, pageURL } = menuItem;
+                    return (
+                        <Button key={id} onClick={() => handleButtonClick(pageURL)}>
+                            {menuTitle}
+                        </Button>
+                    );
+                })
             ]
         }
     }
-
     
 
-    const fetchUsers = (query) => {
-        setSearch(query)
-        fetch('/search-users', {
-            method: 'post',
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                query
-            })
-        })
-        .then(res => res.json())
-        .then(result => setUserDetails(result.user))
-    }
-
     return (
-        <div className="navbar-fixed" >
-            <nav>
-                <div className="nav-wrapper white">
+        <div className={classes.root}>
+            <AppBar position="fixed" color='default' >
+                <Toolbar>
+                    <Typography className={classes.title}>
+                        <Link href="/">▲⚬▲⚬</Link>
+                    </Typography>
+                    <div>
+                        { isMobile ? (   
+                            <>
+                                <IconButton 
+                                    edge="start" 
+                                    className={classes.menuButton} 
+                                    color="inherit" 
+                                    aria-label="menu"
+                                    onClick={handleMenu}>
+                                    <MenuIcon />
+                                </IconButton>
 
-                    <Link to={state ? "/" : "/login"} className="brand-logo left">▲⚬▲⚬</Link>
-                    <a href="#" data-target="mobile-demo" className="right sidenav-trigger"><i className="material-icons">menu</i></a>
-                    <ul id="nav-mobile" className="right hide-on-med-and-down">
-                        {renderList()}
-                    </ul>
-                </div>  
-
-                {/* search */}
-                <div id="modal1" className="modal" ref={searchModal} style={{ color: "black" }}>
-                    <div className="modal-content">
-                        <input
-                            type="text"
-                            placeholder="search users"
-                            value={search}
-                            onChange={(e) => fetchUsers(e.target.value)}
-                        />
-                        <ul className="collection">
-                            {userDetails.map(item => {
-                                return <Link to={item._id !== state._id ? "/profile/" + item._id : '/profile'} onClick={() => {
-                                    M.Modal.getInstance(searchModal.current).close()
-                                    setSearch('')
-                                }}><li className="collection-item">{item.email}</li></Link>
-                            })}
-
-                        </ul>
+                                <Menu
+                                    id="menu-appbar"
+                                    anchorEl={anchorEl}
+                                    anchorOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'right',
+                                    }}
+                                    keepMounted
+                                    transformOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'right',
+                                    }}
+                                    open={open}
+                                    onClose={() => setAnchorEl(null)}
+                                >
+                                    {renderMenu()}
+                                
+                                </Menu>
+                        </>
+                        ) : (
+                            <>
+                                {renderButton()}
+                            </>
+                            
+                        )}
                     </div>
-                    <div className="modal-footer">
-                        <button className="modal-close waves-effect waves-green btn-flat" onClick={() => setSearch('')}>close</button>
-                    </div>
-                </div>
-                
-            </nav>
+                </Toolbar>
+            </AppBar>
+            <Toolbar />
         </div>
-    )
+    );
 }
 
-export default NavBar
+export default withRouter(NavBar)

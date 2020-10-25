@@ -165,6 +165,7 @@ const Home = () => {
                                 <form onSubmit={(e) => {
                                     e.preventDefault()
                                     makeCommentHandler(e.target[0].value, item._id)
+                                    e.target[0].value = ''
                                 }}>
                                     <input type="text" placeholder="add a comment" />
                                 </form>

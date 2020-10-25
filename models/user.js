@@ -4,15 +4,18 @@ const { ObjectId } = mongoose.Schema.Types
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true
+        required: true,
+        minlength: 3
     },
     email: {
         type: String,
+        unique: true,
         required: true
     },
     password: {
         type: String,
-        required: true
+        required: true,
+        minlength: 6
     },
     resetToken: String,
     expireToken: Date,

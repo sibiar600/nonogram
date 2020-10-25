@@ -8,7 +8,7 @@ const Profile = () => {
     const {state, dispatch } = useContext(UserContext)
     const [image, setImage] = useState("")
 
-    console.log('this is state', state)
+    // console.log('this is state', state)
 
     useEffect(() => {
         fetch('/mypost', {
