@@ -16,6 +16,7 @@ import { UserContext } from '../App'
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
+
     },
     menuButton: {
         marginRight: theme.spacing(2),
@@ -57,11 +58,6 @@ const Navbar = props =>  {
     }
 
     const isLoggedInMenu = [
-        {
-            id: 1,
-            menuTitle: 'Home',
-            pageURL: '/'
-        },
         {
             id: 2,
             menuTitle: 'New Post',
