@@ -126,9 +126,9 @@ const Home = () => {
                 data.map(item => {
                     return (
                         <div className='card home-card' key={item._id}>
-
+                            <Scroll showBelow={200} />
                             <div className='card_top'>
-                                <Scroll showBelow={250} />
+                                
                                 <div className='flex'>
                                     <img className='avatar' src={item.postedBy.pic} alt=""/>
                                     <div className='postedby'><Link to={item.postedBy._id !== state._id ? "/profile/" + item.postedBy._id : "/profile"}>{item.postedBy.name}</Link> </div>
