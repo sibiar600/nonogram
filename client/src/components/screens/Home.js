@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useContext} from 'react'
 import { UserContext } from '../../App'
 import {Link} from 'react-router-dom'
-import Scroll from './Scroll'
+
 
 import '../../App.css'
 
@@ -126,7 +126,7 @@ const Home = () => {
                 data.map(item => {
                     return (
                         <div className='card home-card' key={item._id}>
-                            <Scroll showBelow={300} />
+                            
                             <div className='card_top'>
                                 
                                 <div className='flex'>

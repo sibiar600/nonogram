@@ -12,6 +12,7 @@ import Button from '@material-ui/core/Button';
 import {withRouter} from 'react-router-dom'
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { UserContext } from '../App' 
+import Scroll from './screens/Scroll'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -148,6 +149,7 @@ const Navbar = props =>  {
 
     return (
         <div className={classes.root}>
+            <Scroll showBelow={300} />
             <AppBar position="fixed" color='default' >
                 <Toolbar>
                     <Typography className={classes.title}>
