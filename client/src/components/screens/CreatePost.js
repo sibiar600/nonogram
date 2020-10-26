@@ -10,7 +10,6 @@ const CreatePost = () => {
     const [body, setBody] = useState("")
     const [image, setImage] = useState("")
     const [url, setUrl] = useState("")
-    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         if (url) {
@@ -42,36 +41,22 @@ const CreatePost = () => {
         }
     }, [url])
 
-    const previewImage = () => {
-
-        const file = res.json()
-        setImage(file.secure_url)
-        setLoading(false)
-
-    }
-
-
-    const postDetails = async () => {
+    const postDetails = () => {
         const data = new FormData()
         data.append('file', image)
         data.append('upload_preset', 'nonogram')
         data.append('cloud_name', 'nonoumasy')
-        setLoading(true)
+
         // posting to cloudinary 
-        const res = await fetch('https://api.cloudinary.com/v1_1/nonoumasy/image/upload',
+        fetch('https://api.cloudinary.com/v1_1/nonoumasy/image/upload',
             {
                 method: "post",
                 body: data
             })
-            .then(res => {
-                console.log('asdf', res)
-                res.json()
-            })
+            .then(res => res.json())
             .then(data => setUrl(data.url))
             .catch(err => console.log(err))
-        }
-
-    
+    }
         
     return (
         <div className='card input-file'>
@@ -100,21 +85,13 @@ const CreatePost = () => {
                     <input className="file-path validate" type="text" placeholder='Add image.' />
                 </div>
             </div>
-
-            {loading ? (
-                <h3>Loading...</h3>
-            ) : (
-                    <img src={image} style={{ width: '300px' }} />
-                )}
-
-            <button 
-            className="btn waves-effect waves-light"
-            onClick={()=> postDetails()}
+            <button
+                className="btn waves-effect waves-light"
+                onClick={() => postDetails()}
             >
                 Submit Post
             </button>
 
-            
         </div>
         )
     

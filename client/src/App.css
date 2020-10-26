@@ -56,7 +56,6 @@ h2 {
 #toast-container {
   top: 30px;
   right: 30px;
-  left: auto !important;
 }
 
 .material-icons:hover {
