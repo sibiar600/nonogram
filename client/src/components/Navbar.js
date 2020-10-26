@@ -61,7 +61,7 @@ const Navbar = props =>  {
     const isLoggedInMenu = [
         {
             id: 2,
-            menuTitle: 'New Post',
+            menuTitle: 'Add Post',
             pageURL: '/create'
         },
         {
