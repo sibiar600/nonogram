@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { UserContext } from '../../App'
 import { Link } from 'react-router-dom'
+import Footer from './Footer'
 
 import '../../App.css'
 
@@ -85,7 +86,6 @@ const Home = () => {
         })
             .then(res => res.json())
             .then(result => {
-                console.log(result)
                 const newData = data.map(item => {
                     if (item._id === result._id) {
                         return result
@@ -108,7 +108,6 @@ const Home = () => {
         })
             .then(res => res.json())
             .then(result => {
-                // console.log(result)
                 const newData = data.filter(item => {
                     return item._id !== result._id
                 })
@@ -120,6 +119,7 @@ const Home = () => {
 
 
     return (
+        <>
         <div className='home'>
             {
                 data.map(item => {
@@ -176,6 +176,8 @@ const Home = () => {
                 })
             }
         </div>
+            <Footer />
+        </>
     )
 }
 

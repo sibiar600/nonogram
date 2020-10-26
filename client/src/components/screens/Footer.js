@@ -1,6 +1,6 @@
 import { Typography } from '@material-ui/core'
 import React from 'react'
-import '../App.css'
+import '../../App.css'
 
 
 const Footer = () => {

@@ -12,7 +12,7 @@ import SubscribedUserPosts from './components/screens/SubscribedUserPosts'
 import {reducer, initialState} from './reducers/userReducer'
 import Reset from './components/screens/Reset';
 import NewPassword from './components/screens/NewPassword';
-import Footer from './components/Footer';
+
 
 
 export const UserContext = createContext()
@@ -64,7 +64,6 @@ function App() {
           <NewPassword />
         </Route>
     </UserContext.Provider>
-    <Footer />
     </>
   );
 }

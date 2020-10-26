@@ -10,10 +10,10 @@ const CreatePost = () => {
     const [body, setBody] = useState("")
     const [image, setImage] = useState("")
     const [url, setUrl] = useState("")
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         if (url) {
-            console.log(url)
             // posting to database
             fetch("/create", {
                 method: "post",
@@ -42,22 +42,36 @@ const CreatePost = () => {
         }
     }, [url])
 
-    const postDetails = () => {
+    const previewImage = () => {
+
+        const file = res.json()
+        setImage(file.secure_url)
+        setLoading(false)
+
+    }
+
+
+    const postDetails = async () => {
         const data = new FormData()
         data.append('file', image)
         data.append('upload_preset', 'nonogram')
         data.append('cloud_name', 'nonoumasy')
-
+        setLoading(true)
         // posting to cloudinary 
-        fetch('https://api.cloudinary.com/v1_1/nonoumasy/image/upload',
+        const res = await fetch('https://api.cloudinary.com/v1_1/nonoumasy/image/upload',
             {
                 method: "post",
                 body: data
             })
-            .then(res => res.json())
+            .then(res => {
+                console.log('asdf', res)
+                res.json()
+            })
             .then(data => setUrl(data.url))
             .catch(err => console.log(err))
         }
+
+    
         
     return (
         <div className='card input-file'>
@@ -73,6 +87,7 @@ const CreatePost = () => {
             value={body}
             onChange={(e) => setBody(e.target.value)}
             />
+
             <div className="file-field input-field">
                 <div className="btn">
                     <span>Upload Image</span>
@@ -82,15 +97,24 @@ const CreatePost = () => {
                     />
                 </div>
                 <div className="file-path-wrapper">
-                    <input className="file-path validate" type="text"/>
+                    <input className="file-path validate" type="text" placeholder='Add image.' />
                 </div>
             </div>
+
+            {loading ? (
+                <h3>Loading...</h3>
+            ) : (
+                    <img src={image} style={{ width: '300px' }} />
+                )}
+
             <button 
             className="btn waves-effect waves-light"
             onClick={()=> postDetails()}
             >
                 Submit Post
             </button>
+
+            
         </div>
         )
     

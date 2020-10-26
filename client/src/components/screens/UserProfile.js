@@ -15,14 +15,12 @@ const Profile = () => {
     }, state)
 
     useEffect(() => {
-        // console.log("/user/" + userid);
         fetch(`/user/${userid}`, {
             headers: {
                 "Authorization": "Bearer " + localStorage.getItem("jwt")
             }
         }).then(res => res.json())
             .then(result => {
-                // console.log('this is the result', result)
                 setUserProfile(result)
             })
     }, [])

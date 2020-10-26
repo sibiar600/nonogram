@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { UserContext } from '../../App'
+import Footer from './Footer'
 
 import '../../App.css'
 
@@ -7,8 +8,6 @@ const Profile = () => {
     const [mypics, setMyPics] = useState([])
     const {state, dispatch } = useContext(UserContext)
     const [image, setImage] = useState("")
-
-    // console.log('this is state', state)
 
     useEffect(() => {
         fetch('/mypost', {
@@ -48,7 +47,6 @@ const Profile = () => {
                     })
                     .then(res => res.json())
                     .then(result => {
-                        // console.log(result)
                         localStorage.setItem("user", JSON.stringify({ ...state, pic: result.pic }))
                         dispatch({ type: "UPDATEPIC", payload: result.pic })
                     })
@@ -65,6 +63,7 @@ const Profile = () => {
     }
 
     return (
+        <>
 
         <div style={{ maxWidth: "65%", margin: "0px auto" }}>
 
@@ -110,6 +109,8 @@ const Profile = () => {
                 }
             </div>
         </div>
+            <Footer/>
+        </>
     )
 }
 
