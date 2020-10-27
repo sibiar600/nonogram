@@ -57,7 +57,7 @@ const Navbar = props =>  {
     const isLoggedInMenu = [
         {
             id: 2,
-            menuTitle: 'New Post',
+            menuTitle: 'Add Post',
             handleClick: () => handleMenuClick('/create'),
         },
         {
@@ -104,7 +104,10 @@ const Navbar = props =>  {
             <AppBar position="fixed" color='default' >
                 <Toolbar>
                     <Typography className={classes.title}>
-                        <Link href="/">▲⚬▲⚬</Link>
+                        <Link 
+                        href="/"
+                        style={{textDecoration: 'none'}}
+                        >▲⚬▲⚬</Link>
                     </Typography>
                     <div>
                         { isMobile ? (   

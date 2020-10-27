@@ -13,7 +13,6 @@ const CreatePost = () => {
 
     useEffect(() => {
         if (url) {
-            console.log(url)
             // posting to database
             fetch("/create", {
                 method: "post",
@@ -57,7 +56,7 @@ const CreatePost = () => {
             .then(res => res.json())
             .then(data => setUrl(data.url))
             .catch(err => console.log(err))
-        }
+    }
         
     return (
         <div className='card input-file'>
@@ -73,6 +72,7 @@ const CreatePost = () => {
             value={body}
             onChange={(e) => setBody(e.target.value)}
             />
+
             <div className="file-field input-field">
                 <div className="btn">
                     <span>Upload Image</span>
@@ -82,15 +82,16 @@ const CreatePost = () => {
                     />
                 </div>
                 <div className="file-path-wrapper">
-                    <input className="file-path validate" type="text"/>
+                    <input className="file-path validate" type="text" placeholder='Add image.' />
                 </div>
             </div>
-            <button 
-            className="btn waves-effect waves-light"
-            onClick={()=> postDetails()}
+            <button
+                className="btn waves-effect waves-light"
+                onClick={() => postDetails()}
             >
                 Submit Post
             </button>
+
         </div>
         )
     
